@@ -15,7 +15,8 @@ import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import * as authTypes from 'src/auth/auth-types';
+//Corrigir depois
+import type { RequestWithUser } from '../auth/types/auth-types';
 
 @UseGuards(JwtAuthGuard)
 @Controller('tasks')
@@ -25,20 +26,20 @@ export class TasksController {
   @Post()
   create(
     @Body() createTaskDto: CreateTaskDto,
-    @Request() req: authTypes.RequestWithUser,
+    @Request() req: RequestWithUser,
   ) {
     return this.tasksService.create(createTaskDto, req.user);
   }
 
   @Get()
-  findAll(@Request() req: authTypes.RequestWithUser) {
+  findAll(@Request() req: RequestWithUser) {
     return this.tasksService.findAll(req.user);
   }
 
   @Get(':id')
   findOne(
     @Param('id', ParseUUIDPipe) id: string,
-    @Request() req: authTypes.RequestWithUser,
+    @Request() req: RequestWithUser,
   ) {
     return this.tasksService.findOne(id, req.user);
   }
@@ -47,7 +48,7 @@ export class TasksController {
   update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateTaskDto: UpdateTaskDto,
-    @Request() req: authTypes.RequestWithUser,
+    @Request() req: RequestWithUser,
   ) {
     return this.tasksService.update(id, updateTaskDto, req.user);
   }
@@ -56,7 +57,7 @@ export class TasksController {
   @HttpCode(204)
   remove(
     @Param('id', ParseUUIDPipe) id: string,
-    @Request() req: authTypes.RequestWithUser,
+    @Request() req: RequestWithUser,
   ) {
     return this.tasksService.remove(id, req.user);
   }

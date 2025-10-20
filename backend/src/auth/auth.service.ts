@@ -7,7 +7,7 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { User } from 'src/users/entities/user.entity';
-import { UserWithoutPassword } from './auth-types';
+import { UserWithoutPassword } from './types/auth-types';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +29,7 @@ export class AuthService {
     return null;
   }
 
-  //JWT para um usuário autenticado.
+  //JWT para um usuário autenticado
   login(user: User) {
     const payload = { sub: user.id, email: user.email };
     return {
