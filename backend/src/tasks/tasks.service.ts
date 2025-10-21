@@ -37,7 +37,7 @@ export class TasksService {
     }
     return task;
   }
-  //att tarefa(revisar na documentação)
+  //att tarefa
   async update(
     id: string,
     updateTaskDto: UpdateTaskDto,

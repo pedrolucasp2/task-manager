@@ -1,5 +1,3 @@
-// src/tasks/entities/task.entity.ts
-
 import {
   Column,
   CreateDateColumn,

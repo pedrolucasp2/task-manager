@@ -15,7 +15,6 @@ export class UsersService {
   async findByEmail(email: string): Promise<User | null> {
     return this.usersRepository.findOneBy({ email });
   }
-
   //criar um novo usuario
   async create(userData: Partial<User>): Promise<User> {
     if (!userData.password) {
@@ -23,16 +22,13 @@ export class UsersService {
     }
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(userData.password, salt);
-
     //entidade de usuario com a senha hasheada
     const newUser = this.usersRepository.create({
       ...userData,
       password: hashedPassword,
     });
-
     //salva usuario no banco de dados
     const savedUser = await this.usersRepository.save(newUser);
-
     //Retorna usuario sem a senha
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password, ...result } = savedUser;
